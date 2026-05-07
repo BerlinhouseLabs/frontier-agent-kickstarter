@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "functions": {
+    "src/index.ts": {
+      "runtime": "@vercel/node"
+    }
+  },
+  "env": {
+    "SANDBOX_API_BASE": "https://api.sandbox.frontiertower.io"
+  }
+}
