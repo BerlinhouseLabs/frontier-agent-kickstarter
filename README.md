@@ -119,6 +119,13 @@ Hello Agent demonstrates:
 
 No local platform substitutes are included. This kickstarter is intentionally broken until those sandbox pieces are live, matching the posture of the original `frontier-kickstarter` v0.
 
+## Out Of Scope
+
+- **MCP server multi-tenancy.** The autonomous half hits the Frontier REST API directly with `X-API-Key` plus `X-OnBehalfOf`. MCP-level multi-tenancy (one MCP token acting for many citizens) is open research and a separate piece of work — see the Frontier team's research list rather than this kickstarter.
+- A published `@frontiertower/frontier-agent-sdk` package. Helpers live inline at `server/src/lib/`. Extraction comes later, once the API stabilizes.
+- React or Tailwind PWA scaffold. The vanilla-TS shape mirrors `frontier-kickstarter`. A React-stack agent template will live inside `frontier-os-app-builder` (`/fos:new-agent`) when that lands.
+- The AgentRegistry contract source and deployment. Felix's separate work.
+
 ## Deploying Your Agent
 
 When you're ready to deploy, follow `./docs/DEPLOYMENT.md`.
