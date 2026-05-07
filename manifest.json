@@ -1,0 +1,23 @@
+{
+  "name": "Hello Agent",
+  "packageName": "frontier-agent-kickstarter",
+  "description": "A minimal read-only demo agent for the Frontier App Store",
+  "sdkVersion": "0.21.0",
+  "devPort": 5176,
+  "kind": "agent",
+  "modules": ["User"],
+  "permissions": ["user:getDetails", "user:getProfile"],
+  "milestone": "v1",
+  "sdkPhase": "integrated",
+  "phases": [
+    { "number": 1, "name": "PWA Status Surface", "status": "complete" },
+    { "number": 2, "name": "Operator Server", "status": "complete" },
+    { "number": 3, "name": "Agent Registry Wiring", "status": "blocked" }
+  ],
+  "agent": {
+    "serverUrl": "https://hello-agent-server.vercel.app",
+    "subscribesTo": ["cron:weekly", "user:profileUpdated"],
+    "budget": { "currency": "FND", "maxPerPeriod": "0.00", "periodDays": 30 },
+    "scopes": ["user:read"]
+  }
+}
