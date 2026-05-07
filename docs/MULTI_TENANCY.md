@@ -43,7 +43,7 @@ const address = eoa.getAddress();
 const signature = await eoa.signEip712Challenge(challenge);
 ```
 
-The exact challenge endpoint is platform work and is not mocked in this starter.
+The exact challenge endpoint is platform work and is not simulated in this starter.
 
 ## Per-User Scope Checks
 

@@ -9,7 +9,7 @@ Hello Agent has two halves:
 - PWA half: normal Frontier App Store iframe app. It uses `@frontiertower/frontier-sdk` and the existing postMessage protocol.
 - Server half: operator-hosted Hono app. It receives signed Frontier webhooks, calls Frontier APIs with `X-API-Key` and `X-OnBehalfOf`, checks AgentRegistry state, and exposes a JSON status surface.
 
-Do not introduce platform mocks. This starter is allowed to fail until sandbox ships AgentRegistry, gateway on-behalf-of support, and cron deliveries.
+Do not introduce local platform stand-ins. This starter is allowed to fail until sandbox ships AgentRegistry, gateway on-behalf-of support, and cron deliveries.
 
 ## PWA Half
 
@@ -97,7 +97,7 @@ Hello Agent calls:
 const profile = await client.onBehalfOf(user.id).getUser().getProfile();
 ```
 
-That call depends on gateway support for `X-OnBehalfOf`. Until the gateway recognizes agent operators, the call will fail against sandbox. Do not replace this with fake profile data.
+That call depends on gateway support for `X-OnBehalfOf`. Until the gateway recognizes agent operators, the call will fail against sandbox. Do not replace this with sample profile data.
 
 ### onUserAction
 
@@ -233,5 +233,5 @@ Avoid:
 
 - publishing an SDK package from this repo,
 - adding React or Tailwind,
-- adding local mocks for platform pieces,
+- adding local stand-ins for platform pieces,
 - adding a spending demo before AgentRegistry and allowance pulls are live.

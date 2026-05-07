@@ -1,5 +1,6 @@
 import * as ed25519 from '@noble/ed25519';
-import { describe, expect, it } from 'vitest';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
 import { signatureMessage, verifyWebhookDelivery, type JsonValue } from './verify-webhook.js';
 
@@ -25,9 +26,7 @@ describe('verifyWebhookDelivery', () => {
     const body = { data: { b: 2, a: 1 }, event: 'cron:weekly', id: 'delivery-1' };
     const fixture = await signedHeaders(body);
 
-    await expect(
-      verifyWebhookDelivery({ headers: fixture.headers, body, publicKey: fixture.publicKey, now }),
-    ).resolves.toBeUndefined();
+    await verifyWebhookDelivery({ headers: fixture.headers, body, publicKey: fixture.publicKey, now });
   });
 
   it('rejects a tampered body', async () => {
@@ -35,9 +34,10 @@ describe('verifyWebhookDelivery', () => {
     const fixture = await signedHeaders(body);
     const tampered = { ...body, data: { firstName: 'Someone else' } };
 
-    await expect(
+    await assert.rejects(
       verifyWebhookDelivery({ headers: fixture.headers, body: tampered, publicKey: fixture.publicKey, now }),
-    ).rejects.toThrow('Invalid webhook signature');
+      /Invalid webhook signature/,
+    );
   });
 
   it('rejects an old timestamp', async () => {
@@ -45,9 +45,10 @@ describe('verifyWebhookDelivery', () => {
     const oldTimestamp = new Date(now - 6 * 60 * 1000).toISOString();
     const fixture = await signedHeaders(body, oldTimestamp);
 
-    await expect(
+    await assert.rejects(
       verifyWebhookDelivery({ headers: fixture.headers, body, publicKey: fixture.publicKey, now }),
-    ).rejects.toThrow('too old');
+      /too old/,
+    );
   });
 
   it('rejects the wrong public key', async () => {
@@ -55,13 +56,14 @@ describe('verifyWebhookDelivery', () => {
     const fixture = await signedHeaders(body);
     const wrongPublicKey = await ed25519.getPublicKeyAsync(ed25519.utils.randomPrivateKey());
 
-    await expect(
+    await assert.rejects(
       verifyWebhookDelivery({
         headers: fixture.headers,
         body,
         publicKey: Buffer.from(wrongPublicKey).toString('base64'),
         now,
       }),
-    ).rejects.toThrow('Invalid webhook signature');
+      /Invalid webhook signature/,
+    );
   });
 });

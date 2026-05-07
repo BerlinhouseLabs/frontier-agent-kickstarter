@@ -117,7 +117,7 @@ Hello Agent demonstrates:
 - `cron:*` webhook events are not yet emitted by sandbox.
 - The state store is in-memory for v1 and resets on server cold starts. Production operators should swap it for Vercel KV, Cloudflare KV, or Postgres.
 
-No platform mocks are included. This kickstarter is intentionally broken until those sandbox pieces are live, matching the posture of the original `frontier-kickstarter` v0.
+No local platform substitutes are included. This kickstarter is intentionally broken until those sandbox pieces are live, matching the posture of the original `frontier-kickstarter` v0.
 
 ## Deploying Your Agent
 
