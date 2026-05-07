@@ -126,6 +126,16 @@ No local platform substitutes are included. This kickstarter is intentionally br
 - React or Tailwind PWA scaffold. The vanilla-TS shape mirrors `frontier-kickstarter`. A React-stack agent template will live inside `frontier-os-app-builder` (`/fos:new-agent`) when that lands.
 - The AgentRegistry contract source and deployment. Felix's separate work.
 
+## Hosting Model
+
+Agents on Frontier OS are **operator-hosted, permanently**. Frontier Tower does not host agent runtimes — not in v1, not in v2, not later. This is a durable architectural decision, not a temporary stopgap.
+
+The platform surface stays narrow on purpose: AgentRegistry contract, `X-OnBehalfOf` header in the API gateway, cron webhook deliveries, the app-store agent section. Everything else — compute, sandboxing, secret storage, scaling, observability — belongs to the operator.
+
+Citizens are protected on-chain via AgentRegistry's scope and budget caps, not by Frontier vouching for individual operators. Even a malicious operator cannot exceed the citizen's signed budget or scoped permissions.
+
+This kickstarter is the model. Fork it, host both halves wherever you want (Vercel by default, anywhere else by choice), keep your stack flexible.
+
 ## Deploying Your Agent
 
 When you're ready to deploy, follow `./docs/DEPLOYMENT.md`.
